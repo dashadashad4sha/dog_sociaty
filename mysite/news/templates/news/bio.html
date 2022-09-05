@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+{{ dog }} Биография
+{% endblock %}
+
+
+{% block news %}
+<pre><h1>Биография {{ dog }}</h1></pre>
+{% endblock %}
+
+
+{% block content %}
+
+<div class="card mb-3" style="max-width: 540px;">
+    <div class="row g-0">
+
+
+                        <style>
+                            img.big {
+                                cursor: pointer;
+                                max-width: 175px;
+                            }
+
+                            img.big:hover {
+                                max-width: 350px;
+                            }
+                        </style>
+
+                        <img class="big rounded" src="{{ dog.photo.url }}"/>
+
+
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title">{{dog.title}}</h5>
+                <p class="card-text">{{dog.content}}</p>
+                <pre><p class="card-text"><small class="text-muted">{{dog.poroda}}</small>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+
+
+

@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{news_item.title}} | {{block.super}}
+{% endblock %}
+
+
+{% block news %}
+<pre><h1>Новости:                           Собаки:</h1></pre>
+{% endblock %}
+
+
+{% block content %}
+
+
+<div class="card mb-3" style="width: 650px;">
+    <div class="card-header">
+        <a href="{{ news_item.category.get_absolute_url }}" style="text-decoration: none; color: #000000 ">{{ new_item.category}} </a>
+    </div>
+    <div class="row g-0">
+        <div class="col-md-4">
+            {% if i.photo %}
+            <img src="{{ news_item.photo.url }}" class="img-fluid rounded" alt="" class='mr-3' hspace="10" vspace="15">
+            {% else %}
+            <img src="/media/photos/2022/01/12/IMG-20210819-WA0003.jpg" class="img-fluid rounded" alt="" class='mr-3' hspace="10" vspace="15">
+            {% endif %}
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title">{{ news_item.title }}</h5>
+                <p class="card-text">{{ news_item.content }}</p>
+                <p class="card-text"><small class="text-muted">{{ news_item.created_at|timesince }}</small></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+
+
+{% block sidebar %}
+
+{% include 'inc/_sidebar.html' %}
+
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{title}} | {{block.super}}
+{% endblock %}
+
+
+{% block news %}
+<pre><h1>Новости:                           Собаки:</h1></pre>
+{% endblock %}
+
+
+{% block content %}
+
+{% for i in object_list %}
+<div class="card mb-3" style="width: 650px;">
+    <div class="card-header">
+        <a href="{{ i.category.get_absolute_url }}" style="text-decoration: none; color: #000000 ">{{ i.category}} </a>
+    </div>
+    <div class="row g-0">
+        <div class="col-md-4">
+            {% if i.photo %}
+            <img src="{{ i.photo.url }}" class="img-fluid rounded" alt="" class='mr-3' hspace="10" vspace="15">
+            {% else %}
+            <img src="/media/photos/2022/01/12/IMG-20210819-WA0003.jpg" class="img-fluid rounded" alt="" class='mr-3' hspace="10" vspace="15">
+            {% endif %}
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title">{{ i.title }}</h5>
+                <p class="card-text">{{ i.content|linebreaks|truncatewords:5 }}</p>
+                <p class="card-text"><small class="text-muted">{{ i.created_at|timesince }}</small></p>
+                <p align="right"> <a class="btn btn-outline-secondary" href="{{ i.get_absolute_url }}" role="button">Link</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+{% endblock %}
+
+
+{% block sidebar %}
+
+{% include 'inc/_sidebar.html' %}
+
+{% endblock %}

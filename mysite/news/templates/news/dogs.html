@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+
+{% block news %}
+    {% if news.1.category_id == 4 %}
+<h1><p>{{ title }}: <a class="btn btn-outline-secondary" href="/bio/2" role="button">Bio</a></h1></p>
+
+    {% elif news.1.category_id == 3 %}
+    <h1><p>{{ title }}: <a class="btn btn-outline-secondary" href="/bio/3" role="button">Bio</a></h1></p>
+    {% else %}
+        <h1><p>{{ title }}: <a class="btn btn-outline-secondary" href="/bio/1" role="button">Bio</a></h1></p>
+
+    {% endif %}
+
+{% endblock %}
+
+
+{% block content %}
+
+{% for i in news %}
+<div class="card mb-3" style="width: 650px;">
+    <div class="card-header">
+        <a href="{% url 'category' i.category.pk %}" style="text-decoration: none; color: #000000 ">{{i.category}} </a>
+    </div>
+    <div class="row g-0">
+
+                    {% if i.photo %}
+                        <style>
+                            img.big {
+                                cursor: pointer;
+                                max-width: 200px;
+                            }
+
+                            img.big:hover {
+                                max-width: 350px;
+                            }
+                        </style>
+
+                        <img class="big rounded" src={{ i.photo.url }}/>
+                    {% else %}
+                        <style>
+                            img.big {
+                                cursor: pointer;
+                                max-width: 150px;
+                            }
+
+                            img.big:hover {
+                                max-width: 600px;
+                            }
+                        </style>
+
+                        <img class="big" src="/media/photos/2022/01/12/IMG-20210819-WA0003.jpg"/>
+                    {% endif %}
+
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title">{{ i.title }}</h5>
+                <p class="card-text">{{ i.content|linebreaks|truncatewords:5 }}</p>
+                <p class="card-text"><small class="text-muted">{{ i.created_at|timesince }}</small></p>
+                <p align="right"><a class="btn btn-outline-secondary" href="{{ i.get_absolute_url }}" role="button">Link</a></p>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+{% endblock %}
+
+
+{% block sidebar %}
+
+{% include 'inc/_sidebar.html' %}
+
+{% endblock %}
